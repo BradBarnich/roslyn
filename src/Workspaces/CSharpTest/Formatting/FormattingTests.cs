@@ -6128,6 +6128,7 @@ class Program
         var a = typeof(A);
         var b = M(a);
         M();
+        typeof();
     }
 }";
             const string expected = @"
@@ -6139,6 +6140,7 @@ class Program
         var a = typeof ( A );
         var b = M ( a );
         M ( );
+        typeof ( );
     }
 }";
             var optionSet = new Dictionary<OptionKey, object>

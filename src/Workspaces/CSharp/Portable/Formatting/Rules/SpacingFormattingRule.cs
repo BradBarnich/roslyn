@@ -76,6 +76,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Formatting
 
             if (previousKind == SyntaxKind.OpenParenToken && previousParentKind == SyntaxKind.TypeOfExpression)
             {
+                if (currentKind == SyntaxKind.IdentifierToken && currentToken.IsMissing)
+                {
+                    var nextToken = currentToken.GetNextToken();
+                    if (nextToken.IsKind(SyntaxKind.CloseParenToken) && nextToken.Parent.IsKind(SyntaxKind.TypeOfExpression))
+                    {
+                        return AdjustSpacesOperationZeroOrOne(optionSet, CSharpFormattingOptions.SpaceBetweenEmptyMethodCallParentheses);
+                    }
+                }
                 return AdjustSpacesOperationZeroOrOne(optionSet, CSharpFormattingOptions.SpaceWithinMethodCallParentheses);
             }
 
